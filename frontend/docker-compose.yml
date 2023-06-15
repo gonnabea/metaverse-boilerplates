@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  web:
+    image: nginx:stable-alpine3.17-slim
+    container_name: nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - client-network
+  client-blue:
+    image: forestlee0513/persona-client:main-latest
+    container_name: client-blue
+    hostname: client-blue
+    restart: 'always'
+    expose:
+      - '3000:3000'
+    networks:
+      - client-network
+  client-green:
+    image: forestlee0513/persona-client:main-latest
+    container_name: client-green
+    hostname: client-green
+    restart: 'always'
+    expose:
+      - '3000:3000'
+    networks:
+      - client-network
+
+networks:
+  client-network:
+    driver: bridge

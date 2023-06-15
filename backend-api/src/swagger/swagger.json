@@ -1,0 +1,198 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Persona API",
+      "description": "Find out how Persona API works",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "146.56.145.39:90",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "APIs for Authentication in the system"
+      },
+      {
+        "name": "File",
+        "description": "APIs for File Download"
+      }
+
+    ],
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": [],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "securityDefinitions": {
+        "ApiKeyAuth":{
+          "type": "apiKey",
+          "in": "headers",
+          "name": "authorization"
+        }
+    },
+    "paths": {
+      "/auth/sign-in": {
+        "post": {
+          "summary": "Login user",
+          "tags": [
+            "Auth"
+          ],
+          "description": "Login user in system",
+          "parameters": [
+            {
+              "name": "login body",
+              "in": "body",
+              "description": "Login user",
+              "schema": {
+                "$ref": "#/definitions/LoginBody"
+              }
+            }
+          ],
+         
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Login Success",
+              "schema": {
+                "$ref": "#/definitions/LoginBody"
+              }
+            },
+            "401":{
+              "description": "Login details are not valid!!"
+            },
+            "404":{
+              "description": "Email is not registered!"
+            },
+            "500":{
+              "description": "User login failed!!"
+            }
+          }
+        }
+      },
+      "/auth/sign-up": {
+        "post": {
+            "summary": "Sign Up",
+            "tags": [
+                "Auth"
+            ],
+            "description": "Create Account for Persona Service",
+            "parameters": [
+                {
+                  "name": "sign up body",
+                  "in": "body",
+                  "description": "Login user",
+                  "schema": {
+                    "$ref": "#/definitions/SignUpBody"
+                  }
+                }
+            ],
+            "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Sign Up Success",
+                  "schema": {
+                    "$ref": "#/definitions/SignUpBody"
+                  }
+                },
+                "401":{
+                  "description": "Failed (401)"
+                },
+                "404":{
+                  "description": "Failed (404)"
+                },
+                "500":{
+                  "description": "Failed (500)"
+                }
+              }
+        }
+      },
+      "/file/downloadCharacters": {
+        "get": {
+            "summary": "Download Character Model",
+            "tags": [
+                "File"
+            ],
+            "description": "Download Character by url with file name",
+            "parameters": [
+                {
+                  "in": "query",
+                  "name": "fileName",
+                  "type": "string",
+                  "description": "Input character model file name with extension (.glb ...) to download",
+                  "required": true,
+                  "example": "Louise.glb"
+                }
+            ],
+            "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Download Success",
+                  "schema": {
+                   
+                  }
+                },
+                "401":{
+                  "description": "Failed (401)"
+                },
+                "404":{
+                  "description": "Failed (404)"
+                },
+                "500":{
+                  "description": "Failed (500)"
+                }
+              }
+        }
+      }
+    },
+
+    "definitions": {
+
+      "LoginBody": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+
+      "SignUpBody": {
+        "properties": {
+            "email": {
+                "type": "string"
+            },
+            "username": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            },
+            "password2": {
+                "type": "string"
+            }
+        }
+      }
+      
+
+
+
+    }
+  }
